@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:17.5-alpine3.21
+    container_name: pna-postgres
+    volumes:
+      - pna-postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: adhitamafikridev
+      POSTGRES_PASSWORD: adhitamafikridev
+      POSTGRES_DB: pna-postgres
+
+networks:
+  pna-backend-network:
+
+volumes:
+  pna-postgres-data:
