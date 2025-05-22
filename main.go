@@ -1,13 +1,35 @@
 package main
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"fmt"
+	"offline-notes-app-backend/routes"
+	"os"
+
+	"github.com/gofiber/fiber/v2"
+	"github.com/joho/godotenv"
+)
 
 func main() {
+	env := os.Getenv("APP_ENV")
+	fmt.Println("Environment: ", env)
+	if env == "" {
+		env = "local"
+	}
+
+	envFile := fmt.Sprintf(".env.%s", env)
+	_ = godotenv.Load(envFile)
+
 	app := fiber.New()
+
+	routes.RegisterRoutes(app)
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Hello, World!")
 	})
 
-	app.Listen(":5080")
+	host := os.Getenv("APP_HOST")
+	port := os.Getenv("APP_PORT")
+	fmt.Println("Staring server with host: ", host, "and port: ", port)
+
+	app.Listen(host + ":" + port)
 }

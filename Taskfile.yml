@@ -1,0 +1,27 @@
+# https://taskfile.dev
+
+version: "3"
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  default:
+    cmds:
+      - echo "{{.GREETING}}"
+    silent: true
+
+  run_local:
+    desc: Run the service locally
+    cmds:
+      - go run main.go
+
+  service_up:
+    desc: Run docker compose up
+    cmds:
+      - docker compose up -d
+
+  service_down:
+    desc: Run docker compose down
+    cmds:
+      - docker compose down -d
