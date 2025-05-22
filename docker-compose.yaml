@@ -9,8 +9,18 @@ services:
       POSTGRES_PASSWORD: adhitamafikridev
       POSTGRES_DB: pna-postgres
 
+  couchdb:
+    image: couchdb:3.4.3
+    container_name: pna-couchdb
+    volumes:
+      - pna-couchdb-data:/opt/couchdb/data
+    environment:
+      COUCHDB_USER: adhitamafikridev
+      COUCHDB_PASSWORD: adhitamafikridev
+
 networks:
   pna-backend-network:
 
 volumes:
   pna-postgres-data:
+  pna-couchdb-data:
