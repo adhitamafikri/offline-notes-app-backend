@@ -12,9 +12,6 @@ import (
 func main() {
 	env := os.Getenv("APP_ENV")
 	fmt.Println("Environment: ", env)
-	if env == "" {
-		env = "local"
-	}
 
 	envFile := fmt.Sprintf(".env.%s", env)
 	_ = godotenv.Load(envFile)

@@ -14,7 +14,7 @@ tasks:
   run_local:
     desc: Run the service locally
     cmds:
-      - go run main.go
+      - APP_ENV=local go run main.go
 
   service_up:
     desc: Run docker compose up
