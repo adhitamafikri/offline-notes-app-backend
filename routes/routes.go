@@ -6,21 +6,24 @@ import (
 )
 
 func RegisterRoutes(app *fiber.App) {
+	api := app.Group("/api")
+	v1 := api.Group("/v1")
+
 	// Notes routes
-	app.Get("/api/notes", handlers.getNotes)          // List all notes
-	app.Post("/api/notes", handlers.createNote)       // Create a new note
-	app.Get("/api/notes/:id", handlers.getNote)       // Get a note by ID
-	app.Put("/api/notes/:id", handlers.updateNote)    // Update a note by ID
-	app.Delete("/api/notes/:id", handlers.deleteNote) // Delete a note by ID
+	v1.Get("/notes", handlers.GetNotes)          // List all notes
+	v1.Post("/notes", handlers.CreateNote)       // Create a new note
+	v1.Get("/notes/:id", handlers.GetNote)       // Get a note by ID
+	v1.Put("/notes/:id", handlers.UpdateNote)    // Update a note by ID
+	v1.Delete("/notes/:id", handlers.DeleteNote) // Delete a note by ID
 
 	// UserSettings routes
-	app.Get("/api/user-settings", handlers.getUserSettings)    // Get user settings
-	app.Put("/api/user-settings", handlers.updateUserSettings) // Update user settings
+	v1.Get("/user-settings", handlers.GetUserSettings)    // Get user settings
+	v1.Put("/user-settings", handlers.UpdateUserSettings) // Update user settings
 
 	// User routes
-	app.Post("/api/users/register", handlers.registerUser) // Register a new user
-	app.Post("/api/users/login", handlers.loginUser)       // User login
-	app.Get("/api/users/:id", handlers.getUser)            // Get user by ID
-	app.Put("/api/users/:id", handlers.updateUser)         // Update user by ID
-	app.Delete("/api/users/:id", handlers.deleteUser)      // Delete user by ID
+	v1.Post("/users/register", handlers.RegisterUser) // Register a new user
+	v1.Post("/users/login", handlers.LoginUser)       // User login
+	v1.Get("/users/:id", handlers.GetUser)            // Get user by ID
+	v1.Put("/users/:id", handlers.UpdateUser)         // Update user by ID
+	v1.Delete("/users/:id", handlers.DeleteUser)      // Delete user by ID
 }
