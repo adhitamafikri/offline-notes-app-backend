@@ -7,7 +7,7 @@ import (
 
 type User struct {
 	ID       int64  `db:"id"`
-	Username string `db:"username"`
+	Name     string `db:"name"`
 	Email    string `db:"email"`
 	Password string `db:"password"`
 }
@@ -20,13 +20,13 @@ func NewUserRepository() *UserRepository {
 
 func (r *UserRepository) CreateUser(ctx context.Context, user *User) error {
 	query := `INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id`
-	return db.Pool.QueryRow(ctx, query, user.Username, user.Email, user.Password).Scan(&user.ID)
+	return db.Pool.QueryRow(ctx, query, user.Name, user.Email, user.Password).Scan(&user.ID)
 }
 
 func (r *UserRepository) GetUserByID(ctx context.Context, id int64) (*User, error) {
 	user := &User{}
 	query := `SELECT id, username, email, password FROM users WHERE id = $1`
-	err := db.Pool.QueryRow(ctx, query, id).Scan(&user.ID, &user.Username, &user.Email, &user.Password)
+	err := db.Pool.QueryRow(ctx, query, id).Scan(&user.ID, &user.Name, &user.Email, &user.Password)
 	if err != nil {
 		return nil, err
 	}
@@ -36,7 +36,7 @@ func (r *UserRepository) GetUserByID(ctx context.Context, id int64) (*User, erro
 func (r *UserRepository) GetUserByEmail(ctx context.Context, email string) (*User, error) {
 	user := &User{}
 	query := `SELECT id, username, email, password FROM users WHERE email = $1`
-	err := db.Pool.QueryRow(ctx, query, email).Scan(&user.ID, &user.Username, &user.Email, &user.Password)
+	err := db.Pool.QueryRow(ctx, query, email).Scan(&user.ID, &user.Name, &user.Email, &user.Password)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func (r *UserRepository) GetUserByEmail(ctx context.Context, email string) (*Use
 
 func (r *UserRepository) UpdateUser(ctx context.Context, user *User) error {
 	query := `UPDATE users SET username = $1, email = $2, password = $3 WHERE id = $4`
-	_, err := db.Pool.Exec(ctx, query, user.Username, user.Email, user.Password, user.ID)
+	_, err := db.Pool.Exec(ctx, query, user.Name, user.Email, user.Password, user.ID)
 	return err
 }
 
@@ -58,7 +58,7 @@ func (r *UserRepository) DeleteUser(ctx context.Context, id int64) error {
 func (r *UserRepository) AuthenticateUser(ctx context.Context, email, password string) (*User, error) {
 	user := &User{}
 	query := `SELECT id, username, email, password FROM users WHERE email = $1 AND password = $2`
-	err := db.Pool.QueryRow(ctx, query, email, password).Scan(&user.ID, &user.Username, &user.Email, &user.Password)
+	err := db.Pool.QueryRow(ctx, query, email, password).Scan(&user.ID, &user.Name, &user.Email, &user.Password)
 	if err != nil {
 		return nil, err
 	}
