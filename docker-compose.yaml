@@ -1,8 +1,8 @@
 services:
   app:
     build:
-      context: .
-      dockerfile: dev.Dockerfile
+      context: ./
+      dockerfile: ./build/dev.Dockerfile
     container_name: pna-backend
     env_file:
       - .env.local
