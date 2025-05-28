@@ -21,7 +21,7 @@ func main() {
 	routes.RegisterRoutes(app)
 
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World!")
+		return c.SendString("Hello, World updated again!")
 	})
 
 	host := os.Getenv("APP_HOST")

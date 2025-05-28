@@ -1,0 +1,21 @@
+# Basic Air config for Go hot reload
+[build]
+  cmd = "go build -o ./tmp/main ."
+  bin = "tmp/main"
+  full_bin = ""
+  include_ext = ["go", "tpl", "tmpl", "html"]
+  exclude_dir = ["vendor", "tmp", "node_modules"]
+  exclude_file = []
+  follow_symlink = false
+  log = "build.log"
+  poll = false
+  delay = 1000 # ms
+
+[log]
+  time = true
+
+[color]
+  main = "yellow"
+  watcher = "cyan"
+  build = "green"
+  runner = "magenta"

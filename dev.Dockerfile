@@ -6,8 +6,10 @@ COPY go.mod go.sum ./
 
 RUN go mod download
 
+RUN go install github.com/air-verse/air@latest
+
 COPY . .
 
 ENV APP_ENV=local
 
-CMD ["go", "run", "./main.go"]
+CMD ["air", "-c", "./air.toml"]
