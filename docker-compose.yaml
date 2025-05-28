@@ -1,22 +1,40 @@
 services:
+  app:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    container_name: pna-backend
+    env_file:
+      - .env.local
+    volumes:
+      - ./:/app
+    ports:
+      - '5080:${APP_PORT}'
+    depends_on:
+      - postgres
+      - couchdb
+    networks:
+      - pna-backend-network
+
   postgres:
     image: postgres:17.5-alpine3.21
     container_name: pna-postgres
     volumes:
       - pna-postgres-data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: adhitamafikridev
-      POSTGRES_PASSWORD: adhitamafikridev
-      POSTGRES_DB: pna-postgres
+    env_file:
+      - .env.local
+    ports:
+      - '5432:${POSTGRES_PORT}'
 
   couchdb:
     image: couchdb:3.4.3
     container_name: pna-couchdb
     volumes:
       - pna-couchdb-data:/opt/couchdb/data
-    environment:
-      COUCHDB_USER: adhitamafikridev
-      COUCHDB_PASSWORD: adhitamafikridev
+    env_file:
+      - .env.local
+    ports:
+      - '5984:${COUCHDB_PORT}'
 
 networks:
   pna-backend-network:

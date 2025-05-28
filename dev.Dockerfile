@@ -8,5 +8,4 @@ RUN go mod download
 
 COPY . .
 
-# Change later
 RUN go run ./main.go

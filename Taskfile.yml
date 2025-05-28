@@ -24,4 +24,4 @@ tasks:
   service_down:
     desc: Run docker compose down
     cmds:
-      - docker compose down -d
+      - docker compose down
