@@ -8,4 +8,6 @@ RUN go mod download
 
 COPY . .
 
-RUN go run ./main.go
+ENV APP_ENV=local
+
+CMD ["go", "run", "./main.go"]

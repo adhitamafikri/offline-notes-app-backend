@@ -10,11 +10,11 @@ services:
       - ./:/app
     ports:
       - '5080:${APP_PORT}'
+    networks:
+      - pna-backend-network
     depends_on:
       - postgres
       - couchdb
-    networks:
-      - pna-backend-network
 
   postgres:
     image: postgres:17.5-alpine3.21
@@ -25,6 +25,8 @@ services:
       - .env.local
     ports:
       - '5432:${POSTGRES_PORT}'
+    networks:
+      - pna-backend-network
 
   couchdb:
     image: couchdb:3.4.3
@@ -35,6 +37,8 @@ services:
       - .env.local
     ports:
       - '5984:${COUCHDB_PORT}'
+    networks:
+      - pna-backend-network
 
 networks:
   pna-backend-network:
