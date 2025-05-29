@@ -5,21 +5,13 @@ version: "3"
 vars:
   GREETING: Hello from offline-notes-app-backend!
 
-env:
-  APP_ENV: local
-
-dotenv: [.env.local]
+dotenv: [.env]
 
 tasks:
   default:
     cmds:
       - echo "{{.GREETING}}"
     silent: true
-
-  run_local:
-    desc: Run the service locally
-    cmds:
-      - APP_ENV=local go run main.go
 
   service_up:
     desc: Run docker compose up

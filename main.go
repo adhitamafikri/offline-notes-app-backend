@@ -10,11 +10,7 @@ import (
 )
 
 func main() {
-	env := os.Getenv("APP_ENV")
-	fmt.Println("Environment: ", env)
-
-	envFile := fmt.Sprintf(".env.%s", env)
-	_ = godotenv.Load(envFile)
+	_ = godotenv.Load(".env")
 
 	app := fiber.New()
 
