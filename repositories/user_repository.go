@@ -2,7 +2,7 @@ package repositories
 
 import (
 	"context"
-	"offline-notes-app-backend/db"
+	db "offline-notes-app-backend/db/postgres"
 )
 
 type User struct {
@@ -12,13 +12,13 @@ type User struct {
 	Password string `db:"password"`
 }
 
-type UserRepository interface{
-	CreateUser(ctx context.Context, user *User) error
-	GetUserByID(ctx context.Context, id int64) (*User, error)
-	GetUserByEmail(ctx context.Context, email string) (*User, error)
-	UpdateUser(ctx context.Context, user *User) error
-	DeleteUser(ctx context.Context, id int64) error
-	AuthenticateUser(ctx context.Context, email, password string) (*User, error)
+type UserRepository struct {
+	// CreateUser(ctx context.Context, user *User) error
+	// GetUserByID(ctx context.Context, id int64) (*User, error)
+	// GetUserByEmail(ctx context.Context, email string) (*User, error)
+	// UpdateUser(ctx context.Context, user *User) error
+	// DeleteUser(ctx context.Context, id int64) error
+	// AuthenticateUser(ctx context.Context, email, password string) (*User, error)
 }
 
 func NewUserRepository() *UserRepository {
